@@ -4,48 +4,111 @@ import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
+import * as styles from "./index.module.scss"
+
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
 
+  const postsByMonth = data.allMarkdownRemark.edges.reduce(
+    (posts, { node }) => {
+      const date = node.frontmatter.date
+      let parts = date.split(" ")
+      let year = parts[0]
+      let month = parts[1]
+
+      if (!posts[year]) {
+        posts[year] = {}
+      }
+      if (!posts[year][month]) {
+        posts[year][month] = []
+      }
+      posts[year][month].push(node)
+      return posts
+    },
+    {}
+  )
+
+  console.log(postsByMonth)
+
   if (posts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
-        <p>
-          No blog posts found. Add markdown posts to "content/blog" (or the
-          directory you specified for the "gatsby-source-filesystem" plugin in
-          gatsby-config.js).
-        </p>
+        <p>No blog posts found.</p>
       </Layout>
     )
   }
 
   return (
     <Layout location={location} title={siteTitle}>
-      <ol style={{ listStyle: `none` }}>
-        {posts.map(post => {
-          const title = post.frontmatter.title || post.fields.slug
-
+      <div class={styles.postsGrid}>
+        <h2>global</h2>
+        <ol style={{ listStyle: `none` }}>
+          {Object.keys(postsByMonth).map(year =>
+            Object.keys(postsByMonth[year]).map(month =>
+              postsByMonth[year][month].map(post => {
+                const title = post.frontmatter.title || post.fields.slug
+                return post.frontmatter.category === "global" && post.frontmatter.status === "public" ? (
+                  <li key={post.fields.slug}>
+                    <article
+                      className="post-list-item"
+                      itemScope
+                      itemType="http://schema.org/Article"
+                    >
+                      <header>
+                        <h3>
+                          <Link to={post.fields.slug} itemProp="url">
+                            <span itemProp="headline">{title}</span>
+                          </Link>
+                        </h3>
+                      </header>
+                    </article>
+                  </li>
+                ) : null
+              })
+            )
+          )}
+        </ol>
+      </div>
+      <div class={styles.postsGrid}>
+        {Object.keys(postsByMonth).map(year => {
           return (
-            <li key={post.fields.slug}>
-              <article
-                className="post-list-item"
-                itemScope
-                itemType="http://schema.org/Article"
-              >
-                <header>
-                  <h2>
-                    <Link to={post.fields.slug} itemProp="url">
-                      <span itemProp="headline">{title}</span>
-                    </Link>
-                  </h2>
-                  <small>{post.frontmatter.date}</small>
-                </header>
-              </article>
-            </li>
+            <>
+              <h2 class={styles.label}>{year}</h2>
+              <ol style={{ listStyle: `none` }}>
+                {Object.keys(postsByMonth[year]).map(month =>
+                  postsByMonth[year][month].map(post => {
+                    const title = post.frontmatter.title || post.fields.slug
+                    const date = post.frontmatter.date
+                    let parts = date.split(" ")
+                    let month = parts[1]
+                    let day = parts[2]
+                    return post.frontmatter.category === "post" && post.frontmatter.status === "public" ? (
+                      <li key={post.fields.slug}>
+                        <article
+                          className="post-list-item"
+                          itemScope
+                          itemType="http://schema.org/Article"
+                        >
+                          <header>
+                            <h3>
+                              <Link to={post.fields.slug} itemProp="url">
+                                <div class={styles.title} itemProp="headline">
+                                  <span class={styles.day}>{month}-{day}</span><span>{title}</span>
+                                </div>
+                              </Link>
+                            </h3>
+                          </header>
+                        </article>
+                      </li>
+                    ) : null
+                  })
+                )}
+              </ol>
+            </>
           )
         })}
-      </ol>
+      </div>
     </Layout>
   )
 }
@@ -66,15 +129,30 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
+    allMarkdownRemark(sort: { frontmatter: { date: ASC } }) {
       nodes {
         fields {
           slug
         }
         frontmatter {
-          date(formatString: "MMMM DD, YYYY")
+          category
+          date(formatString: "MM DD YYYY")
           title
           description
+          status
+        }
+      }
+      edges {
+        node {
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            category
+            date(formatString: "YYYY MM DD")
+            status
+          }
         }
       }
     }
