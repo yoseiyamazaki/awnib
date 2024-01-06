@@ -1,0 +1,36 @@
+.postsGrid {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  column-gap: 1.5vw;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 100%;
+  h2 {
+    margin-top: -0.08vw;
+    font-size: var(--fontSize-2);
+    font-family: "neue-haas-grotesk-display", "Helvetica Neue", Arial,
+      sans-serif;
+    font-weight: var(--fontWeight-bold);
+    text-align: right;
+    transform: none;
+  }
+  h3 {
+    margin-top: 0;
+    font-size: var(--fontSize-1);
+    font-weight: var(--fontWeight-normal);
+    transform: scaleY(1.6);
+    transform-origin: top left;
+    .title {
+      display: flex;
+      gap: 0.5vw;
+      .day {
+        flex-shrink: 0;
+      }
+    }
+  }
+  ol {
+    margin-top: -0.15vw;
+    margin-bottom: 25px;
+    max-width: 15vw;
+  }
+}

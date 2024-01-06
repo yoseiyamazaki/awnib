@@ -1,0 +1,15 @@
+.column {
+  display: flex;
+  justify-content: space-between;
+  gap: 5vw;
+  :global(.main-heading) {
+    position: sticky;
+    top: var(--spacing-16);
+    font-weight: var(--fontWeight-bold);
+    font-family: "neue-haas-grotesk-display", "Helvetica Neue", Arial,
+      sans-serif;
+    text-decoration: none;
+    font-size: var(--fontSize-4);
+    transform: none;
+  }
+}
