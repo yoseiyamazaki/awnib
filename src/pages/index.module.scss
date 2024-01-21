@@ -1,12 +1,12 @@
 .postsGrid {
   display: grid;
   grid-template-columns: 50px 1fr;
-  column-gap: 1.5vw;
+  column-gap: max(1.5vw, 15px);
   align-items: flex-start;
   justify-content: flex-end;
   width: 100%;
   h2 {
-    margin-top: -0.08vw;
+    margin-top: -2px;
     font-size: var(--fontSize-2);
     font-family: "neue-haas-grotesk-display", "Helvetica Neue", Arial,
       sans-serif;
@@ -18,7 +18,7 @@
     margin-top: 0;
     font-size: var(--fontSize-1);
     font-weight: var(--fontWeight-normal);
-    transform: scaleY(1.6);
+    transform: scaleY(1.6) translateY(-1px);
     transform-origin: top left;
     .title {
       display: flex;
@@ -29,8 +29,11 @@
     }
   }
   ol {
-    margin-top: -0.15vw;
+    margin-top: -2px;
     margin-bottom: 25px;
     max-width: 15vw;
+    @media (max-width: 425px) {
+      max-width: 35vw;
+    }
   }
 }
