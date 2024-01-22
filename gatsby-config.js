@@ -8,6 +8,7 @@
  * @type {import('gatsby').GatsbyConfig}
  */
 module.exports = {
+  pathPrefix: "",
   siteMetadata: {
     title: `All we need is balance`,
     author: {
