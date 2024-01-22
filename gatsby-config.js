@@ -11,14 +11,16 @@ module.exports = {
   siteMetadata: {
     title: `All we need is balance`,
     author: {
-      name: `yy`,
+      name: ``,
       summary: ``,
     },
     description: ``,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
+    siteUrl: `https://allweneedisbalance.com/`,
     social: {
       twitter: ``,
     },
+    lang: `ja`,
+    locale: `ja_JP`,
   },
   plugins: [
     `gatsby-plugin-image`,
