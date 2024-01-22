@@ -300,7 +300,7 @@ main {
 }
 
 .post-list-item header {
-  margin-bottom: var(--spacing-2);
+  margin-bottom: var(--spacing-3);
 }
 
 .header-link-home {
