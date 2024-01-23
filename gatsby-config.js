@@ -10,16 +10,17 @@
 module.exports = {
   pathPrefix: "",
   siteMetadata: {
-    title: `All we need is balance`,
+    title: `All we need is balance.`,
+    description: `Hi. It is so personal blog.`,
     author: {
       name: ``,
       summary: ``,
     },
-    description: ``,
-    siteUrl: `https://allweneedisbalance.com/`,
-    social: {
-      twitter: ``,
-    },
+    siteUrl: `https://allweneedisbalance.com`,
+    ogpImg: "/ogp.png",
+    ogpImgW: "1200",
+    ogpImgH: "630",
+    favicon: "/favicon.ico",
     lang: `ja`,
     locale: `ja_JP`,
   },
