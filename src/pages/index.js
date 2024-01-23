@@ -37,71 +37,75 @@ const BlogIndex = ({ data, location }) => {
       <div class={styles.postsGrid}>
         <h2>global</h2>
         <ol style={{ listStyle: `none` }}>
-          {Object.keys(postsByYear).reverse().map(year =>
-            postsByYear[year].map(post => {
-              const title = post.frontmatter.title || post.fields.slug
-              return post.frontmatter.category === "global" &&
-                post.frontmatter.status === "public" ? (
-                <li key={post.fields.slug}>
-                  <article
-                    className="post-list-item"
-                    itemScope
-                    itemType="http://schema.org/Article"
-                  >
-                    <header>
-                      <h3>
-                        <Link to={post.fields.slug} itemProp="url">
-                          <span itemProp="headline">{title}</span>
-                        </Link>
-                      </h3>
-                    </header>
-                  </article>
-                </li>
-              ) : null
-            })
-          )}
+          {Object.keys(postsByYear)
+            .reverse()
+            .map(year =>
+              postsByYear[year].map(post => {
+                const title = post.frontmatter.title || post.fields.slug
+                return post.frontmatter.category === "global" &&
+                  post.frontmatter.status === "public" ? (
+                  <li key={post.fields.slug}>
+                    <article
+                      className="post-list-item"
+                      itemScope
+                      itemType="http://schema.org/Article"
+                    >
+                      <header>
+                        <h3>
+                          <Link to={post.fields.slug} itemProp="url">
+                            <span itemProp="headline">{title}</span>
+                          </Link>
+                        </h3>
+                      </header>
+                    </article>
+                  </li>
+                ) : null
+              })
+            )}
         </ol>
       </div>
       <div class={styles.postsGrid}>
-        {Object.keys(postsByYear).reverse().map(year => {
-          return (
-            <>
-              <h2 class={styles.label}>{year}</h2>
-              <ol style={{ listStyle: `none` }}>
-                {postsByYear[year].map(post => {
-                  const title = post.frontmatter.title || post.fields.slug
-                  const date = post.frontmatter.date
-                  let parts = date.split(" ")
-                  let month = parts[1]
-                  let day = parts[2]
-                  return post.frontmatter.category === "post" &&
-                    post.frontmatter.status === "public" ? (
-                    <li key={post.fields.slug}>
-                      <article
-                        className="post-list-item"
-                        itemScope
-                        itemType="http://schema.org/Article"
-                      >
-                        <header>
-                          <h3>
-                            <Link to={post.fields.slug} itemProp="url">
-                              <div class={styles.title} itemProp="headline">
-                                <span class={styles.day}>
-                                  {month}-{day}
-                                </span>
-                                <span>{title}</span>
-                              </div>
-                            </Link>
-                          </h3>
-                        </header>
-                      </article>
-                    </li>
-                  ) : null
-                })}
-              </ol>
-            </>
-          )
-        })}
+        {Object.keys(postsByYear)
+          .reverse()
+          .map(year => {
+            return (
+              <>
+                <h2 class={styles.label}>{year}</h2>
+                <ol style={{ listStyle: `none` }}>
+                  {postsByYear[year].map(post => {
+                    const title = post.frontmatter.title || post.fields.slug
+                    const date = post.frontmatter.date
+                    let parts = date.split(" ")
+                    let month = parts[1]
+                    let day = parts[2]
+                    return post.frontmatter.category === "post" &&
+                      post.frontmatter.status === "public" ? (
+                      <li key={post.fields.slug}>
+                        <article
+                          className="post-list-item"
+                          itemScope
+                          itemType="http://schema.org/Article"
+                        >
+                          <header>
+                            <h3>
+                              <Link to={post.fields.slug} itemProp="url">
+                                <div class={styles.title} itemProp="headline">
+                                  <span class={styles.day}>
+                                    {month}-{day}
+                                  </span>
+                                  <span>{title}</span>
+                                </div>
+                              </Link>
+                            </h3>
+                          </header>
+                        </article>
+                      </li>
+                    ) : null
+                  })}
+                </ol>
+              </>
+            )
+          })}
       </div>
     </Layout>
   )
@@ -123,7 +127,10 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { frontmatter: { date: ASC } }) {
+    allMarkdownRemark(
+      sort: { frontmatter: { date: ASC } }
+      filter: { frontmatter: { status: { eq: "public" } } }
+    ) {
       nodes {
         fields {
           slug

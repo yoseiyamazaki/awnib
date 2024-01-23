@@ -1,6 +1,6 @@
 ---
 title: 中間色の賢者たち
-date: "2015-05-01T22:12:03.284Z"
+date: "2024-01-01T22:12:03.284Z"
 description: ""
 category: "global"
 status: "public"
