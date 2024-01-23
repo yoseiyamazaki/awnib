@@ -43,7 +43,7 @@ const Seo = ({ description, title, children }) => {
   const metaDescription = description ? description : defaultDescription
   const siteUrl = site.siteMetadata?.siteUrl
   const metaUrl = pagePath ? `${siteUrl}${pagePath}` : `${siteUrl}`
-  const metaType = pagePath ? `website` : `article`
+  const metaType = !pagePath ? `website` : `article`
   const defaultOgp = site.siteMetadata?.ogpImg
   const ogpImg = file.publicURL
   const ogpImgW = site.siteMetadata?.ogpImgW
