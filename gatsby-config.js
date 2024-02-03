@@ -10,19 +10,21 @@
 module.exports = {
   pathPrefix: "",
   siteMetadata: {
-    title: `All we need is balance.`,
-    description: `Hi. It is so personal blog.`,
+    defaultTitle: "All we need is balance.",
+    defaultDescription: "Hi. It is so personal blog.",
+    defaultSiteUrl: "",
+    facebookID: "",
+    twitter: "",
+    defaultLang: `ja`,
+    defaultLocale: `ja_JP`,
+    defaultOgpImg: "/ogp.png",
+    defaultOgpImgW: 1200,
+    defaultOgpImgH: 630,
+    favicon: "/favicon.ico",
     author: {
       name: ``,
       summary: ``,
     },
-    siteUrl: `https://allweneedisbalance.com`,
-    ogpImg: "/ogp.png",
-    ogpImgW: "1200",
-    ogpImgH: "630",
-    favicon: "/favicon.ico",
-    lang: `ja`,
-    locale: `ja_JP`,
   },
   plugins: [
     `gatsby-plugin-image`,
@@ -112,7 +114,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-sass`,
-    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
