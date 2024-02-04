@@ -7,7 +7,7 @@ import Seo from "../components/seo"
 import * as styles from "./index.module.scss"
 
 const BlogIndex = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata?.title || `Title`
+  const siteTitle = data.site.siteMetadata?.defaultTitle || `Title`
   const posts = data.allMarkdownRemark.nodes
 
   const postsByYear = data.allMarkdownRemark.edges.reduce((posts, { node }) => {
@@ -117,7 +117,7 @@ export const pageQuery = graphql`
   {
     site {
       siteMetadata {
-        title
+        defaultTitle
       }
     }
     allMarkdownRemark(
