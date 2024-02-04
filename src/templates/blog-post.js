@@ -1,5 +1,5 @@
 import * as React from "react"
-import {  graphql } from "gatsby"
+import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -29,6 +29,7 @@ const BlogPostTemplate = ({
     </Layout>
   )
 }
+export default BlogPostTemplate
 
 export const Head = ({ data, location }) => {
   const post = data.markdownRemark
@@ -75,8 +76,6 @@ export const Head = ({ data, location }) => {
     </>
   )
 }
-
-export default BlogPostTemplate
 
 export const pageQuery = graphql`
   query BlogPostBySlug(

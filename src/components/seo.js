@@ -12,9 +12,6 @@ export const Seo = props => {
     pageImageH,
   } = props
   const {
-    wp: {
-      generalSettings: { title, description },
-    },
     site: {
       siteMetadata: {
         defaultTitle,
@@ -53,10 +50,10 @@ export const Seo = props => {
   /*-- langの設定 --*/
   const lang = defaultLang || `ja`
   /*-- タイトルの設定 --*/
-  const siteName = title || defaultTitle
+  const siteName = defaultTitle
   const metaTitle = pageTitle ? pageTitle + "｜" + siteName : siteName
   /*-- 説明文の設定 --*/
-  const siteDescription = description ? description : defaultDescription
+  const siteDescription = defaultDescription
   const metaDescription = pageExcerpt
     ? pageExcerpt.length > 120
       ? pageExcerpt.slice(0, 120) + "..."
@@ -105,3 +102,5 @@ export const Seo = props => {
     </>
   )
 }
+
+export default Seo
