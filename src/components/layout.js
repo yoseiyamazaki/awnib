@@ -1,7 +1,5 @@
 import * as React from "react"
 import { Link } from "gatsby"
-import { graphql } from "gatsby"
-
 import * as styles from "./layout.module.scss"
 
 const Layout = ({ location, title, children }) => {
@@ -36,16 +34,3 @@ const Layout = ({ location, title, children }) => {
 }
 
 export default Layout
-
-export const query = graphql`
-  query ($id: String!) {
-    markdownRemark(id: { eq: $id }) {
-      frontmatter {
-        title
-        description
-      }
-    }
-  }
-`
-
-

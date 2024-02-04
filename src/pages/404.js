@@ -21,7 +21,7 @@ const NotFoundPage = ({ data, location }) => {
   )
 }
 
-export const Head = ({ data, location }) => {
+export const Head = ({ location }) => {
 
   return (
     <>

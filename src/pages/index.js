@@ -153,7 +153,7 @@ export const pageQuery = graphql`
   }
 `
 
-export const Head = ({ data, location }) => {
+export const Head = ({ location }) => {
   return (
     <>
       <Seo
