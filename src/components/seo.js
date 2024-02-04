@@ -34,6 +34,7 @@ export const Seo = props => {
           defaultTitle
           defaultDescription
           defaultSiteUrl
+          facebookID
           twitter
           defaultLang
           defaultLocale
