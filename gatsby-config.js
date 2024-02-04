@@ -12,7 +12,8 @@ module.exports = {
   siteMetadata: {
     defaultTitle: "All we need is balance.",
     defaultDescription: "Hi. It is so personal blog.",
-    defaultSiteUrl: "",
+    defaultSiteUrl: "https://allweneedisbalance.com",
+    siteUrl: "https://allweneedisbalance.com",
     facebookID: "",
     twitter: "",
     defaultLang: `ja`,
@@ -128,5 +129,6 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    `gatsby-plugin-sitemap`,
   ],
 }

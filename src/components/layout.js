@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Link } from "gatsby"
+import { graphql } from "gatsby"
 
-import { Seo } from "../components/seo"
 import * as styles from "./layout.module.scss"
 
 const Layout = ({ location, title, children }) => {
@@ -48,23 +48,4 @@ export const query = graphql`
   }
 `
 
-export const Head = ({ data, location }) => {
-  const post = data.markdownRemark
 
-  return (
-    <>
-      <Seo
-        pageTitle={post.frontmatter?.title}
-        pageExcerpt={post.frontmatter?.description}
-        pagePath={location.pathname}
-      />
-      <link rel="stylesheet" href="https://use.typekit.net/zax1sns.css"></link>
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;800;900&family=Shippori+Mincho:wght@700&display=swap"
-        rel="stylesheet"
-      ></link>
-    </>
-  )
-}
