@@ -14,16 +14,16 @@ export const Seo = props => {
   const {
     site: {
       siteMetadata: {
-        defaultTitle,
-        defaultDescription,
-        defaultSiteUrl,
+        siteTitle,
+        siteDescription,
+        siteUrl,
         facebookID,
         twitter,
-        defaultLang,
-        defaultLocale,
-        defaultOgpImg,
-        defaultOgpImgW,
-        defaultOgpImgH,
+        siteLang,
+        siteLocale,
+        siteOgpImg,
+        siteOgpImgW,
+        siteOgpImgH,
       },
     },
     file: { publicURL },
@@ -31,16 +31,16 @@ export const Seo = props => {
     query SeoQuery {
       site {
         siteMetadata {
-          defaultTitle
-          defaultDescription
-          defaultSiteUrl
+          siteTitle
+          siteDescription
+          siteUrl
           facebookID
           twitter
-          defaultLang
-          defaultLocale
-          defaultOgpImg
-          defaultOgpImgW
-          defaultOgpImgH
+          siteLang
+          siteLocale
+          siteOgpImg
+          siteOgpImgW
+          siteOgpImgH
         }
       }
       file(name: { eq: "ogp" }) {
@@ -49,19 +49,16 @@ export const Seo = props => {
     }
   `)
   /*-- langの設定 --*/
-  const lang = defaultLang || `ja`
+  const lang = siteLang || `ja`
   /*-- タイトルの設定 --*/
-  const siteName = defaultTitle
-  const metaTitle = pageTitle ? pageTitle + "｜" + siteName : siteName
+  const metaTitle = pageTitle ? pageTitle + "｜" + siteTitle : siteTitle
   /*-- 説明文の設定 --*/
-  const siteDescription = defaultDescription
   const metaDescription = pageExcerpt
     ? pageExcerpt.length > 120
       ? pageExcerpt.slice(0, 120) + "..."
       : pageExcerpt
     : siteDescription
   /*-- ページURLの設定 --*/
-  const siteUrl = defaultSiteUrl
   const metaUrl = pagePath ? `${siteUrl}${pagePath}` : `${siteUrl}`
   /*-- サイトのtypeの設定 --*/
   const metaType = pageType ? pageType : `article`
@@ -80,7 +77,7 @@ export const Seo = props => {
 
   return (
     <>
-      <html lang="ja" />
+      <html lang={lang} />
       {/* ページのタイトルや説明文、canical */}
       <title>{metaTitle}</title>
       <meta name="description" content={metaDescription} />
@@ -93,8 +90,8 @@ export const Seo = props => {
       <meta property="og:image" content={metaOgpImg} />
       <meta property="og:image:width" content={metaOgpImgW} />
       <meta property="og:image:height" content={metaOgpImgH} />
-      <meta property="og:site_name" content={siteName} />
-      <meta property="og:locale" content={defaultLocale} />
+      <meta property="og:site_name" content={siteTitle} />
+      <meta property="og:locale" content={siteLocale} />
       <meta property="fb:app_id" content={facebookID} />
       {/* twitter */}
       <meta name="twitter:card" content="summary_large_image" />
