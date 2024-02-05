@@ -8,7 +8,7 @@ const BlogPostTemplate = ({
   data: { previous, next, site, markdownRemark: post },
   location,
 }) => {
-  const siteTitle = site.siteMetadata?.defaultTitle || `Title`
+  const siteTitle = site.siteMetadata?.siteTitle || `Title`
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -85,7 +85,7 @@ export const pageQuery = graphql`
   ) {
     site {
       siteMetadata {
-        defaultTitle
+        siteTitle
       }
     }
     markdownRemark(id: { eq: $id }) {
