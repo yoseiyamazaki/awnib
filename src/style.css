@@ -240,6 +240,7 @@ table thead tr th {
 
 a {
   color: var(--color-primary);
+  -webkit-tap-highlight-color: transparent;
 }
 
 a:hover,
