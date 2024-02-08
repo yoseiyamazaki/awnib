@@ -110,5 +110,14 @@ module.exports = {
     },
     `gatsby-plugin-sass`,
     `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        trackingIds: ["G-WWNW3E0Z04"],
+        pluginConfig: {
+          head: true,
+        },
+      },
+    },
   ],
 }
