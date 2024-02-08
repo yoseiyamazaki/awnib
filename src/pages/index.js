@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useRef, useEffect } from "react"
 import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
@@ -9,6 +9,21 @@ import * as styles from "./index.module.scss"
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.siteTitle || `Title`
   const posts = data.allMarkdownRemark.nodes
+
+  const skewRef = useRef([null])
+
+  useEffect(() => {
+    var items = document.querySelectorAll(".skew")
+
+    items.forEach(item => {
+      if (item) {
+        var matrix = window.getComputedStyle(item).transform
+        var matrixArray = matrix.replace("matrix(", "").split(",")
+        var scale = parseFloat(matrixArray[3])
+        item.style.height = item.clientHeight * scale + "px"
+      }
+    })
+  }, [])
 
   const postsByYear = data.allMarkdownRemark.edges.reduce((posts, { node }) => {
     const date = node.frontmatter.date
@@ -22,8 +37,6 @@ const BlogIndex = ({ data, location }) => {
     return posts
   }, {})
 
-  console.log(postsByYear)
-
   if (posts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
@@ -34,7 +47,7 @@ const BlogIndex = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <div class={styles.postsGrid}>
+      <div className={styles.postsGrid}>
         <h2>global</h2>
         <ol style={{ listStyle: `none` }}>
           {Object.keys(postsByYear)
@@ -51,7 +64,7 @@ const BlogIndex = ({ data, location }) => {
                       itemType="http://schema.org/Article"
                     >
                       <header>
-                        <h3>
+                        <h3 ref={skewRef} className="skew">
                           <Link to={post.fields.slug} itemProp="url">
                             <span itemProp="headline">{title}</span>
                           </Link>
@@ -64,13 +77,13 @@ const BlogIndex = ({ data, location }) => {
             )}
         </ol>
       </div>
-      <div class={styles.postsGrid}>
+      <div className={styles.postsGrid}>
         {Object.keys(postsByYear)
           .reverse()
           .map(year => {
             return (
               <>
-                <h2 class={styles.label}>{year}</h2>
+                <h2 className={styles.label}>{year}</h2>
                 <ol style={{ listStyle: `none` }}>
                   {postsByYear[year].map(post => {
                     const title = post.frontmatter.title || post.fields.slug
@@ -87,10 +100,13 @@ const BlogIndex = ({ data, location }) => {
                           itemType="http://schema.org/Article"
                         >
                           <header>
-                            <h3>
+                            <h3 ref={skewRef} className="skew">
                               <Link to={post.fields.slug} itemProp="url">
-                                <div class={styles.title} itemProp="headline">
-                                  <span class={styles.day}>
+                                <div
+                                  className={styles.title}
+                                  itemProp="headline"
+                                >
+                                  <span className={styles.day}>
                                     {month}-{day}
                                   </span>
                                   <span>{title}</span>
@@ -121,7 +137,7 @@ export const pageQuery = graphql`
       }
     }
     allMarkdownRemark(
-      sort: { frontmatter: { date: ASC } }
+      sort: { frontmatter: { date: DESC } }
       filter: { frontmatter: { status: { eq: "public" } } }
     ) {
       nodes {
@@ -156,9 +172,7 @@ export const pageQuery = graphql`
 export const Head = ({ location }) => {
   return (
     <>
-      <Seo
-        pagePath={location.pathname}
-      />
+      <Seo pagePath={location.pathname} />
       <link rel="stylesheet" href="https://use.typekit.net/zax1sns.css"></link>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

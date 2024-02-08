@@ -18,11 +18,14 @@
     margin-top: 0;
     font-size: var(--fontSize-1);
     font-weight: var(--fontWeight-normal);
-    transform: scaleY(1.6) translateY(-1.7px);
-    transform-origin: top left;
+    transform: scaleY(1.6) translateY(-2px);
+    transform-origin: 0% 0%;
     .title {
       display: flex;
       gap: 0.5vw;
+      @media (max-width: 425px) {
+        gap: 7px;
+      }
       .day {
         flex-shrink: 0;
       }
@@ -31,7 +34,7 @@
   ol {
     margin-top: -2px;
     margin-bottom: 25px;
-    max-width: 15vw;
+    max-width: 16vw;
     @media (max-width: 425px) {
       max-width: 35vw;
     }

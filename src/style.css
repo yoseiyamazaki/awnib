@@ -40,9 +40,9 @@
   --fontWeight-black: 900;
   --fontSize-root: 16px;
   --lineHeight-none: 1;
-  --lineHeight-tight: 1.2;
-  --lineHeight-normal: 1.5;
-  --lineHeight-relaxed: 1.725;
+  --lineHeight-tight: 1.3;
+  --lineHeight-normal: 1.6;
+  --lineHeight-relaxed: 1.9;
   /* 1.200 Minor Third Type Scale */
   --fontSize-0: max(0.75vw, 10px);
   --fontSize-1: max(0.9vw, 11px);
@@ -60,7 +60,7 @@
   --color-text-light: #4f5969;
   --color-heading: black;
   --color-heading-black: black;
-  --color-accent: #d1dce5;
+  --color-accent: #dddddd;
 }
 
 /* HTML elements */
@@ -94,6 +94,7 @@ hr {
   background: var(--color-accent);
   height: 1px;
   border: 0;
+  margin: var(--spacing-0) var(--spacing-0) var(--spacing-8) var(--spacing-0);
 }
 
 /* Heading */
@@ -110,7 +111,7 @@ h6 {
   line-height: var(--lineHeight-tight);
   letter-spacing: -0.035em;
   transform: scaleY(1.6);
-  transform-origin: top left;
+  transform-origin: 0% 0%;
 }
 
 h2,
@@ -204,7 +205,7 @@ li > ul {
 blockquote {
   color: var(--color-text-light);
   margin-left: calc(-1 * var(--spacing-6));
-  margin-right: var(--spacing-8);
+  margin-right: var(--spacing-4);
   padding: var(--spacing-0) var(--spacing-0) var(--spacing-0) var(--spacing-6);
   border-left: var(--spacing-1) solid var(--color-primary);
   font-size: var(--fontSize-1);
@@ -252,11 +253,12 @@ a:focus {
 
 main {
   max-width: 38.19vw;
-  margin-top: 12px;
+  margin-top: 11px;
 }
 
 @media (max-width: 425px) {
   main {
+    margin-top: 30px;
     max-width: 61.81vw;
   }
 }
@@ -301,7 +303,6 @@ main {
 }
 
 .post-list-item header {
-  margin-bottom: var(--spacing-3);
 }
 
 .header-link-home {
