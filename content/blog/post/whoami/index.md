@@ -1,5 +1,5 @@
 ---
-title: 誰もいなくても自分だけは逃げない
+title: 誰もいなくても俺はここにいる
 date: "2024-04-02"
 description: ""
 category: "post"
