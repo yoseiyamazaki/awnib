@@ -1,5 +1,5 @@
 ---
-title: 俺はどうしたいのか俺に聞く
+title: 誰もいなくても自分だけは逃げない
 date: "2024-04-02"
 description: ""
 category: "post"
