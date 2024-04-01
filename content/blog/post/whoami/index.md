@@ -1,5 +1,5 @@
 ---
-title: 擬態したって仕方がない
+title: 俺はどうしたいのか俺に聞く
 date: "2024-04-02"
 description: ""
 category: "post"
