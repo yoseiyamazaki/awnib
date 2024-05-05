@@ -1,5 +1,5 @@
 ---
-title: 【短評】悪は存在しない
+title: 【短評】濱口竜介/悪は存在しない
 date: "2024-05-04"
 description: ""
 category: "post"
