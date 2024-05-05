@@ -25,6 +25,8 @@ status: "public"
 ただ一方で触れておきたいのは、濱口氏は非常にリアリズムのある主題を採用しつつも、常にそれをある種の軽やかさと持ってまとめ上げてきた作家でもあるということだ。  
 なぜそれを成しえてるかという所が、私には全く魔法のように感じるのだが、あえてそれを言語化するなら、その由来は濱口監督の社会に対する誠実な態度と鋭い観察能力にあると思う。  
 状況を先入観なく見ることができ、そこに一滴の作家性を落とすることができる監督は、無駄な重みを一切捨てて、見る人の心に真っ直ぐに主題を届けて去っていく。  
+
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=Kd4PT-nN2rI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
   
 --------
   
@@ -104,7 +106,7 @@ status: "public"
 
 --------
 
-:[^1] “[Biennale Cinema 2023 | Aku wa sonzai shinai (Evil Does Not Exist.](https://ja.m.wikipedia.org/wiki/%E6%82%AA%E3%81%AF%E5%AD%98%E5%9C%A8%E3%81%97%E3%81%AA%E3%81%84) (英語). La Biennale di Venezia (2023年7月6日).  
-:[^2] [Ryûsuke Hamaguchi on Evil Does Not Exist](https://m.youtube.com/watch?v=VCXMbhC794I) | NYFF61  
-:[^3] [観客の度肝を抜く濱口竜介監督『悪は存在しない』。映像とせめぎあう言葉の精度と響き、その圧倒的おもしろさ](https://moviewalker.jp/news/article/1193862/p3) | MOVIE WALKER PRESS
+[^1]: “[Biennale Cinema 2023 | Aku wa sonzai shinai (Evil Does Not Exist.](https://ja.m.wikipedia.org/wiki/%E6%82%AA%E3%81%AF%E5%AD%98%E5%9C%A8%E3%81%97%E3%81%AA%E3%81%84) (英語). La Biennale di Venezia (2023年7月6日).  
+[^2]: [Ryûsuke Hamaguchi on Evil Does Not Exist](https://m.youtube.com/watch?v=VCXMbhC794I) | NYFF61  
+[^3]: [観客の度肝を抜く濱口竜介監督『悪は存在しない』。映像とせめぎあう言葉の精度と響き、その圧倒的おもしろさ](https://moviewalker.jp/news/article/1193862/p3) | MOVIE WALKER PRESS
 
