@@ -113,4 +113,4 @@ status: "public"
 [^1]: “[Biennale Cinema 2023 | Aku wa sonzai shinai (Evil Does Not Exist.](https://ja.m.wikipedia.org/wiki/%E6%82%AA%E3%81%AF%E5%AD%98%E5%9C%A8%E3%81%97%E3%81%AA%E3%81%84) (英語). La Biennale di Venezia (2023年7月6日).  
 [^2]: [Ryûsuke Hamaguchi on Evil Does Not Exist](https://m.youtube.com/watch?v=VCXMbhC794I) | NYFF61  
 [^3]: [観客の度肝を抜く濱口竜介監督『悪は存在しない』。映像とせめぎあう言葉の精度と響き、その圧倒的おもしろさ](https://moviewalker.jp/news/article/1193862/p3) | MOVIE WALKER PRESS
-
+  
