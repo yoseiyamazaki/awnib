@@ -31,9 +31,7 @@ status: "public"
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Kd4PT-nN2rI?si=2FLZWlNEUyYU9WAq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>  
   
 --------
-  
 注)以下、映画本編の内容に具体的に触れています。また、一部筆者独自の解釈を含みます。解釈の余地が広い作品ですので、一視点としてお楽しみください。  
---------
   
 作中、企業の担当者から地元住民へグランピング施設建設計画についての説明会が行われるが、不十分な排水設備や、現実的ではない運営体制、資金繰りが優先された建築スケジュールが露呈し、双方の溝がむしろ深まるというシーンがある。  
 のどかな山中にグランピング施設を建設する、というワードから予想できる危惧が全て形になっていくシーンとも言える。  
