@@ -27,11 +27,12 @@ status: "public"
 ただ一方で、濱口氏はリアリズムの指向が強くありつつも、常にそれをある種の軽やかさを持ってまとめ上げてきた作家でもある。  
 なぜそれを成しえてるかという所が私には全く魔法のように感じるのだが、あえて言語化するなら、その由来は濱口監督の社会に対する誠実な態度と鋭い観察能力にあると思う。  
 状況を先入観なく見ることができ、そこに一滴の作家性を落とすることができる監督は、無駄な重みを一切捨てて、見る人の心に真っ直ぐに主題を届け去っていく。  
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Kd4PT-nN2rI?si=2FLZWlNEUyYU9WAq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>  
-　　
-注)以下、映画本編の内容に具体的に触れています。また、一部筆者独自の解釈を含みます。解釈の余地が広い作品ですので、一視点としてお楽しみください。  
   
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Kd4PT-nN2rI?si=2FLZWlNEUyYU9WAq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>  
+  
+--------
+  
+注)以下、映画本編の内容に具体的に触れています。また、一部筆者独自の解釈を含みます。解釈の余地が広い作品ですので、一視点としてお楽しみください。  
 --------
   
 作中、企業の担当者から地元住民へグランピング施設建設計画についての説明会が行われるが、不十分な排水設備や、現実的ではない運営体制、資金繰りが優先された建築スケジュールが露呈し、双方の溝がむしろ深まるというシーンがある。  
