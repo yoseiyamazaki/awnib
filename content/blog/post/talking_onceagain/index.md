@@ -3,7 +3,7 @@ title: 【短評】 ¥$,  Ye,  Ty Dolla $ign  -  Talking  /  Once Again
 date: "2024-02-08"
 description: ""
 category: "post"
-status: "public"
+status: "private"
 ---
 
 Ye こと Kanye West はキャンセルカルチャーの輪郭を明確に浮き上がらせた。
