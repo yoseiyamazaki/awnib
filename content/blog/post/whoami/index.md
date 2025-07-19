@@ -3,7 +3,7 @@ title: 誰もいなくても俺はここにいる
 date: "2024-04-02"
 description: ""
 category: "post"
-status: "public"
+status: "private"
 ---
 
 音楽をやっていてつくづく思うが、強烈に何かを成し遂げる人は、みな自分のやってることに迷いがない。  

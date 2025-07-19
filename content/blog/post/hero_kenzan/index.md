@@ -3,7 +3,7 @@ title: 「ヒーロー見参！」
 date: "2024-10-11"
 description: ""
 category: "post"
-status: "public"
+status: "private"
 ---
 
 現実世界で正義が負ける瞬間を見た時、それが自分ごとでなくても、それが海の向こうの出来事であっても、結構本気で鬱っぽくなってしまう自分がいる。  
