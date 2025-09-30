@@ -2,7 +2,7 @@
 title: 2024に観た映画
 date: "2025-01-02T23:46:37.121Z"
 category: "post"
-status: "public"
+status: "private"
 ---
 
 今年は61本でした。  
