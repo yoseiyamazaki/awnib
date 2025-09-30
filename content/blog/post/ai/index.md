@@ -3,7 +3,7 @@ title: 誰か1人くらい愛し抜いてみろ
 date: "2024-02-27"
 description: ""
 category: "post"
-status: "public"
+status: "private"
 ---
 
 <!--誰も傷つけない方法とは、裏を返せば誰の心も強く打たないという方法である。-->
