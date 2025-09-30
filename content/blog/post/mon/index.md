@@ -2,7 +2,7 @@
 title: 門
 date: "2024-01-08"
 category: "post"
-status: "public"
+status: "private"
 ---
 
 ここに一つの肉と骨の塊がある。
