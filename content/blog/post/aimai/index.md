@@ -3,7 +3,7 @@ title: 曖昧さが世界を守っていると信じる
 date: "2025-07-19"
 description: ""
 category: "post"
-status: "public"
+status: "private"
 ---
 
 曖昧さが世界を守っていると信じたい。　　
