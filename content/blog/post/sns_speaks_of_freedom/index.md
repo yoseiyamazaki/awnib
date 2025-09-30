@@ -3,7 +3,7 @@ title: SNSは言った.「ようこそ!ジユウな世界へ!」と.
 date: "2024-01-17"
 description: SNSの開拓史はゴールドラッシュに似ている
 category: "post"
-status: "public"
+status: "private"
 ---
 
 SNSフロンティアは開拓し尽くされた。
