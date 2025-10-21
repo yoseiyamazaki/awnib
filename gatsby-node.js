@@ -19,14 +19,13 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const contentfulResult = await graphql(`
     {
       allContentfulPost(
-        sort: { createdAt: ASC }
+        sort: { date: ASC }
         filter: { category: { in: ["post", "global"] } }
       ) {
         nodes {
           id
           slug
           category
-          status
         }
       }
     }
@@ -45,11 +44,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   // Create Contentful blog posts pages
   if (contentfulPosts.length > 0) {
     contentfulPosts.forEach((post, index) => {
-      // Skip private posts in production
-      if (process.env.NODE_ENV === 'production' && post.status === 'private') {
-        return
-      }
-
       const previousPostId = index === 0 ? null : contentfulPosts[index - 1].id
       const nextPostId = index === contentfulPosts.length - 1 ? null : contentfulPosts[index + 1].id
 

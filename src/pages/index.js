@@ -37,14 +37,13 @@ const BlogIndex = ({ data, location }) => {
       frontmatter: {
         title: node.title,
         category: node.category,
-        date: node.createdAt,
-        status: node.status || 'public'
+        date: node.date
       }
     }
   }))
 
   const postsByYear = contentfulEdges.reduce((posts, { node }) => {
-    const date = node.createdAt
+    const date = node.date
     let parts = date.split(" ")
     let year = parseInt(parts[0])
 
@@ -73,8 +72,7 @@ const BlogIndex = ({ data, location }) => {
             .map(year =>
               postsByYear[year].map(post => {
                 const title = post.frontmatter.title || post.fields.slug
-                return post.frontmatter.category === "global" &&
-                  post.frontmatter.status === "public" ? (
+                return post.frontmatter.category === "global" ? (
                   <li key={post.fields.slug}>
                     <article
                       className="post-list-item"
@@ -109,8 +107,7 @@ const BlogIndex = ({ data, location }) => {
                     let parts = date.split(" ")
                     let month = parts[1]
                     let day = parts[2]
-                    return post.frontmatter.category === "post" &&
-                      post.frontmatter.status === "public" ? (
+                    return post.frontmatter.category === "post" ? (
                       <li key={post.fields.slug}>
                         <article
                           className="post-list-item"
@@ -154,17 +151,13 @@ export const pageQuery = graphql`
         siteTitle
       }
     }
-    allContentfulPost(
-      sort: { createdAt: DESC }
-      filter: { status: { ne: "private" } }
-    ) {
+    allContentfulPost(sort: { date: DESC }) {
       nodes {
         id
         slug
         title
         category
-        createdAt(formatString: "MM DD YYYY")
-        status
+        date(formatString: "MM DD YYYY")
       }
       edges {
         node {
@@ -172,8 +165,7 @@ export const pageQuery = graphql`
           slug
           title
           category
-          createdAt(formatString: "YYYY MM DD")
-          status
+          date(formatString: "YYYY MM DD")
         }
       }
     }

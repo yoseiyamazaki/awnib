@@ -44,7 +44,7 @@ const BlogPostTemplate = ({
       >
         <header>
           <h1 itemProp="headline">{post.title}</h1>
-          <p>{post.createdAt}</p>
+          <p>{post.date}</p>
         </header>
         <section itemProp="articleBody">
           {post.body && renderRichText(post.body, options)}
@@ -86,8 +86,7 @@ export const pageQuery = graphql`
       title
       slug
       category
-      status
-      createdAt(formatString: "MMMM DD, YYYY")
+      date(formatString: "MMMM DD, YYYY")
       updatedAt(formatString: "MMMM DD, YYYY")
       body {
         raw
