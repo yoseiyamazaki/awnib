@@ -69,8 +69,8 @@ module.exports = {
                 title: node.title,
                 description: '',
                 date: node.createdAt,
-                url: `${site.siteMetadata.siteUrl}/${node.category}/${node.slug}`,
-                guid: `${site.siteMetadata.siteUrl}/${node.category}/${node.slug}`,
+                url: `${site.siteMetadata.siteUrl}/${node.slug}`,
+                guid: `${site.siteMetadata.siteUrl}/${node.slug}`,
                 custom_elements: [{ "content:encoded": node.body?.raw || '' }],
               }))
             },

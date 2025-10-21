@@ -33,7 +33,7 @@ const BlogIndex = ({ data, location }) => {
   const contentfulEdges = (data.allContentfulPost?.edges || []).map(({ node }) => ({
     node: {
       ...node,
-      fields: { slug: `/${node.category}/${node.slug}` },
+      fields: { slug: `/${node.slug}` },
       frontmatter: {
         title: node.title,
         category: node.category,
