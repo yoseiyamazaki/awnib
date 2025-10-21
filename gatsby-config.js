@@ -4,6 +4,11 @@
  * See: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/
  */
 
+// Load environment variables
+require("dotenv").config({
+  path: `.env`,
+})
+
 /**
  * @type {import('gatsby').GatsbyConfig}
  */
@@ -23,11 +28,14 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-image`,
+    // Contentful Source Plugin
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `gatsby-source-contentful`,
       options: {
-        path: `${__dirname}/content/blog`,
-        name: `blog`,
+        spaceId: process.env.CONTENTFUL_SPACE_ID,
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+        host: process.env.CONTENTFUL_HOST || `cdn.contentful.com`,
+        enableTags: true,
       },
     },
     {
@@ -35,26 +43,6 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
-      },
-    },
-    {
-      resolve: `gatsby-transformer-remark`,
-      options: {
-        plugins: [
-          {
-            resolve: `gatsby-remark-images`,
-            options: {
-              maxWidth: 630,
-            },
-          },
-          {
-            resolve: `gatsby-remark-responsive-iframe`,
-            options: {
-              wrapperStyle: `margin-bottom: 1.0725rem`,
-            },
-          },
-          `gatsby-remark-prismjs`,
-        ],
       },
     },
     `gatsby-transformer-sharp`,
@@ -66,8 +54,8 @@ module.exports = {
           {
             site {
               siteMetadata {
-                title
-                description
+                siteTitle
+                siteDescription
                 siteUrl
                 site_url: siteUrl
               }
@@ -76,34 +64,34 @@ module.exports = {
         `,
         feeds: [
           {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.nodes.map(node => {
-                return Object.assign({}, node.frontmatter, {
-                  description: node.excerpt,
-                  date: node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + node.fields.slug,
-                  custom_elements: [{ "content:encoded": node.html }],
-                })
-              })
+            serialize: ({ query: { site, allContentfulPost } }) => {
+              return allContentfulPost.nodes.map(node => ({
+                title: node.title,
+                description: '',
+                date: node.createdAt,
+                url: `${site.siteMetadata.siteUrl}/${node.category}/${node.slug}`,
+                guid: `${site.siteMetadata.siteUrl}/${node.category}/${node.slug}`,
+                custom_elements: [{ "content:encoded": node.body?.raw || '' }],
+              }))
             },
             query: `{
-              allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
+              allContentfulPost(
+                sort: {createdAt: DESC}
+                filter: {status: {ne: "private"}}
+              ) {
                 nodes {
-                  excerpt
-                  html
-                  fields {
-                    slug
-                  }
-                  frontmatter {
-                    title
-                    date
+                  title
+                  slug
+                  category
+                  createdAt
+                  body {
+                    raw
                   }
                 }
               }
             }`,
             output: "/rss.xml",
-            title: "Gatsby Starter Blog RSS Feed",
+            title: "All we need is balance. RSS Feed",
           },
         ],
       },

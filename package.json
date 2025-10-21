@@ -8,8 +8,10 @@
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
   "dependencies": {
+    "@contentful/rich-text-types": "^16.0.0",
     "@fontsource-variable/montserrat": "^5.0.4",
     "@fontsource/merriweather": "^5.0.3",
+    "dotenv": "^16.4.5",
     "gatsby": "^5.13.0",
     "gatsby-plugin-feed": "^5.13.0",
     "gatsby-plugin-google-gtag": "^5.13.1",
@@ -18,13 +20,9 @@
     "gatsby-plugin-sass": "^6.13.0",
     "gatsby-plugin-sharp": "^5.13.0",
     "gatsby-plugin-sitemap": "^6.13.1",
-    "gatsby-remark-images": "^7.13.0",
-    "gatsby-remark-prismjs": "^7.13.0",
-    "gatsby-remark-responsive-iframe": "^6.13.0",
+    "gatsby-source-contentful": "^8.13.0",
     "gatsby-source-filesystem": "^5.13.0",
-    "gatsby-transformer-remark": "^6.13.0",
     "gatsby-transformer-sharp": "^5.13.0",
-    "prismjs": "^1.29.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-helmet": "^6.1.0",
@@ -32,6 +30,7 @@
   },
   "devDependencies": {
     "gh-pages": "^6.1.1",
+    "gray-matter": "^4.0.3",
     "prettier": "^2.8.8"
   },
   "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
@@ -45,7 +44,7 @@
   },
   "scripts": {
     "build": "gatsby build",
-    "develop": "gatsby develop",
+    "dev": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "gatsby develop",
     "serve": "gatsby serve",

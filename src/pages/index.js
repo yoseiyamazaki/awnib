@@ -9,7 +9,10 @@ import * as styles from "./index.module.scss"
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.siteTitle || `Title`
-  const posts = data.allMarkdownRemark.nodes
+
+  // Get Contentful posts
+  const contentfulPosts = data.allContentfulPost?.nodes || []
+  const allPosts = contentfulPosts
 
   const skewRef = useRef([null])
 
@@ -26,8 +29,22 @@ const BlogIndex = ({ data, location }) => {
     })
   }, [])
 
-  const postsByYear = data.allMarkdownRemark.edges.reduce((posts, { node }) => {
-    const date = node.frontmatter.date
+  // Group Contentful posts by year
+  const contentfulEdges = (data.allContentfulPost?.edges || []).map(({ node }) => ({
+    node: {
+      ...node,
+      fields: { slug: `/${node.category}/${node.slug}` },
+      frontmatter: {
+        title: node.title,
+        category: node.category,
+        date: node.createdAt,
+        status: node.status || 'public'
+      }
+    }
+  }))
+
+  const postsByYear = contentfulEdges.reduce((posts, { node }) => {
+    const date = node.createdAt
     let parts = date.split(" ")
     let year = parseInt(parts[0])
 
@@ -38,7 +55,7 @@ const BlogIndex = ({ data, location }) => {
     return posts
   }, {})
 
-  if (posts.length === 0) {
+  if (allPosts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
         <p>No blog posts found.</p>
@@ -137,33 +154,26 @@ export const pageQuery = graphql`
         siteTitle
       }
     }
-    allMarkdownRemark(
-      sort: { frontmatter: { date: DESC } }
-      filter: { frontmatter: { status: { eq: "public" } } }
+    allContentfulPost(
+      sort: { createdAt: DESC }
+      filter: { status: { ne: "private" } }
     ) {
       nodes {
-        fields {
-          slug
-        }
-        frontmatter {
-          category
-          date(formatString: "MM DD YYYY")
-          title
-          description
-          status
-        }
+        id
+        slug
+        title
+        category
+        createdAt(formatString: "MM DD YYYY")
+        status
       }
       edges {
         node {
-          fields {
-            slug
-          }
-          frontmatter {
-            title
-            category
-            date(formatString: "YYYY MM DD")
-            status
-          }
+          id
+          slug
+          title
+          category
+          createdAt(formatString: "YYYY MM DD")
+          status
         }
       }
     }

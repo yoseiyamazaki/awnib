@@ -1,15 +1,39 @@
 import * as React from "react"
 import { graphql } from "gatsby"
+import { renderRichText } from "gatsby-source-contentful/rich-text"
+import { BLOCKS, MARKS } from "@contentful/rich-text-types"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { Libraries } from "../components/libraries";
 
 const BlogPostTemplate = ({
-  data: { previous, next, site, markdownRemark: post },
+  data: { previous, next, site, contentfulPost },
   location,
 }) => {
   const siteTitle = site.siteMetadata?.siteTitle || `Title`
+  const post = contentfulPost
+
+  // RichTextレンダリングオプション
+  const options = {
+    renderNode: {
+      [BLOCKS.PARAGRAPH]: (node, children) => {
+        // テキストノード内の改行を処理
+        const processedChildren = React.Children.map(children, child => {
+          if (typeof child === 'string') {
+            return child.split('\n').map((text, i, arr) => (
+              <React.Fragment key={i}>
+                {text}
+                {i < arr.length - 1 && <br />}
+              </React.Fragment>
+            ))
+          }
+          return child
+        })
+        return <p>{processedChildren}</p>
+      },
+    },
+  }
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -19,13 +43,12 @@ const BlogPostTemplate = ({
         itemType="http://schema.org/Article"
       >
         <header>
-          <h1 itemProp="headline">{post.frontmatter.title}</h1>
-          <p>{post.frontmatter.date}</p>
+          <h1 itemProp="headline">{post.title}</h1>
+          <p>{post.createdAt}</p>
         </header>
-        <section
-          dangerouslySetInnerHTML={{ __html: post.html }}
-          itemProp="articleBody"
-        />
+        <section itemProp="articleBody">
+          {post.body && renderRichText(post.body, options)}
+        </section>
       </article>
     </Layout>
   )
@@ -33,13 +56,13 @@ const BlogPostTemplate = ({
 export default BlogPostTemplate
 
 export const Head = ({ data, location }) => {
-  const post = data.markdownRemark
+  const post = data.contentfulPost
 
   return (
     <>
       <Seo
-        pageTitle={post.frontmatter?.title}
-        pageExcerpt={post.frontmatter?.description}
+        pageTitle={post.title}
+        pageExcerpt={''}
         pagePath={location.pathname}
       />
        <Libraries />
@@ -58,32 +81,27 @@ export const pageQuery = graphql`
         siteTitle
       }
     }
-    markdownRemark(id: { eq: $id }) {
+    contentfulPost(id: { eq: $id }) {
       id
-      excerpt(pruneLength: 160)
-      html
-      frontmatter {
-        title
-        date(formatString: "MMMM DD, YYYY")
-        description
-        status
+      title
+      slug
+      category
+      status
+      createdAt(formatString: "MMMM DD, YYYY")
+      updatedAt(formatString: "MMMM DD, YYYY")
+      body {
+        raw
       }
     }
-    previous: markdownRemark(id: { eq: $previousPostId }) {
-      fields {
-        slug
-      }
-      frontmatter {
-        title
-      }
+    previous: contentfulPost(id: { eq: $previousPostId }) {
+      slug
+      category
+      title
     }
-    next: markdownRemark(id: { eq: $nextPostId }) {
-      fields {
-        slug
-      }
-      frontmatter {
-        title
-      }
+    next: contentfulPost(id: { eq: $nextPostId }) {
+      slug
+      category
+      title
     }
   }
 `
