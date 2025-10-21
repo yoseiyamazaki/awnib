@@ -48,7 +48,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       const nextPostId = index === contentfulPosts.length - 1 ? null : contentfulPosts[index + 1].id
 
       createPage({
-        path: `/${post.category}/${post.slug}`,
+        path: `/${post.slug}`,
         component: blogPost,
         context: {
           id: post.id,
