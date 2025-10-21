@@ -77,7 +77,6 @@ module.exports = {
             query: `{
               allContentfulPost(
                 sort: {createdAt: DESC}
-                filter: {status: {ne: "private"}}
               ) {
                 nodes {
                   title
