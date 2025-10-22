@@ -76,7 +76,19 @@ const BlogPostTemplate = ({
   const options = {
     renderNode: {
       [BLOCKS.PARAGRAPH]: (node, children) => {
-        // テキストノード内の改行を処理
+        // nodeの値を直接チェックしてHTMLタグが含まれているか確認
+        const rawText = node.content
+          .map(content => content.value || '')
+          .join('');
+
+        const htmlTagPattern = /<[^>]+>/;
+
+        // HTMLタグが含まれている場合
+        if (htmlTagPattern.test(rawText)) {
+          return <p dangerouslySetInnerHTML={{ __html: rawText }} />
+        }
+
+        // 通常のテキスト処理（改行を<br />に変換）
         const processedChildren = React.Children.map(children, child => {
           if (typeof child === 'string') {
             return child.split('\n').map((text, i, arr) => (
@@ -88,6 +100,7 @@ const BlogPostTemplate = ({
           }
           return child
         })
+
         return <p>{processedChildren}</p>
       },
     },
