@@ -1,6 +1,7 @@
 /* CSS Custom Properties Definitions */
 
 :root {
+  // Max Width
   --maxWidth-none: "none";
   --maxWidth-xs: 20rem;
   --maxWidth-sm: 24rem;
@@ -12,6 +13,8 @@
   --maxWidth-4xl: 56rem;
   --maxWidth-full: "100%";
   --maxWidth-wrapper: var(--maxWidth-2xl);
+
+  // Spacing
   --spacing-px: "1px";
   --spacing-0: 0;
   --spacing-1: 0.5rem;
@@ -27,6 +30,8 @@
   --spacing-20: 5rem;
   --spacing-24: 6rem;
   --spacing-32: 8rem;
+
+  // Font Family
   --fontFamily-sans: "Noto Sans JP", "MontserratVariable", system-ui,
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
     Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
@@ -35,15 +40,20 @@
     Times, serif;
   --font-body: var(--fontFamily-sans);
   --font-heading: var(--fontFamily-sans);
+
+  // Font Weight
   --fontWeight-normal: 400;
   --fontWeight-bold: 700;
   --fontWeight-black: 900;
+
+  // Font Size & Line Height
   --fontSize-root: 16px;
   --lineHeight-none: 1;
   --lineHeight-tight: 1.3;
   --lineHeight-normal: 1.6;
   --lineHeight-relaxed: 1.9;
-  /* 1.200 Minor Third Type Scale */
+
+  // 1.200 Minor Third Type Scale
   --fontSize-0: max(0.75vw, 10px);
   --fontSize-1: max(0.9vw, 11px);
   --fontSize-2: max(1vw, 12px);
@@ -55,6 +65,8 @@
   --fontSize-8: max(3.5vw, 24px);
   --fontSize-9: max(5vw, 34px);
   --fontSize-10: max(7vw, 42px);
+
+  // Colors
   --color-primary: black;
   --color-text: #2e353f;
   --color-text-light: #4f5969;
@@ -112,6 +124,11 @@ h6 {
   letter-spacing: -0.035em;
   transform: scaleY(1.6);
   transform-origin: 0% 0%;
+
+  > a {
+    text-decoration: none;
+    color: inherit;
+  }
 }
 
 h2,
@@ -149,20 +166,6 @@ h6 {
   font-size: var(--fontSize-0);
 }
 
-h1 > a {
-  color: inherit;
-  text-decoration: none;
-}
-
-h2 > a,
-h3 > a,
-h4 > a,
-h5 > a,
-h6 > a {
-  text-decoration: none;
-  color: inherit;
-}
-
 /* Prose */
 
 p {
@@ -181,25 +184,24 @@ ol {
   margin-bottom: var(--spacing-8);
   list-style-position: outside;
   list-style-image: none;
-}
 
-ul li,
-ol li {
-  padding-left: var(--spacing-0);
-  margin-bottom: calc(var(--spacing-4) / 2);
-}
+  li {
+    padding-left: var(--spacing-0);
+    margin-bottom: calc(var(--spacing-4) / 2);
 
-li > p {
-  margin-bottom: calc(var(--spacing-8) / 2);
-}
+    > p {
+      margin-bottom: calc(var(--spacing-8) / 2);
+    }
 
-li *:last-child {
-  margin-bottom: var(--spacing-0);
-}
+    *:last-child {
+      margin-bottom: var(--spacing-0);
+    }
 
-li > ul {
-  margin-left: var(--spacing-8);
-  margin-top: calc(var(--spacing-8) / 2);
+    > ul {
+      margin-left: var(--spacing-8);
+      margin-top: calc(var(--spacing-8) / 2);
+    }
+  }
 }
 
 blockquote {
@@ -211,19 +213,19 @@ blockquote {
   font-size: var(--fontSize-1);
   font-style: italic;
   margin-bottom: var(--spacing-8);
-}
 
-blockquote > :last-child {
-  margin-bottom: var(--spacing-0);
-}
+  > :last-child {
+    margin-bottom: var(--spacing-0);
+  }
 
-blockquote > ul,
-blockquote > ol {
-  list-style-position: inside;
-}
+  > ul,
+  > ol {
+    list-style-position: inside;
+  }
 
-blockquote p {
-  transform: none;
+  p {
+    transform: none;
+  }
 }
 
 table {
@@ -231,10 +233,10 @@ table {
   margin-bottom: var(--spacing-8);
   border-collapse: collapse;
   border-spacing: 0.25rem;
-}
 
-table thead tr th {
-  border-bottom: 1px solid var(--color-accent);
+  thead tr th {
+    border-bottom: 1px solid var(--color-accent);
+  }
 }
 
 /* Link */
@@ -242,11 +244,11 @@ table thead tr th {
 a {
   color: var(--color-primary);
   -webkit-tap-highlight-color: transparent;
-}
 
-a:hover,
-a:focus {
-  text-decoration: none;
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
 }
 
 /* Custom classes */
@@ -254,10 +256,8 @@ a:focus {
 main {
   max-width: 38.19vw;
   margin-top: 11px;
-}
 
-@media (max-width: 425px) {
-  main {
+  @media (max-width: 425px) {
     margin-top: 30px;
     max-width: 61.81vw;
   }
@@ -266,16 +266,14 @@ main {
 .global-wrapper {
   margin: var(--spacing-0) auto;
   padding: var(--spacing-16) var(--spacing-10);
-}
 
-@media (max-width: 425px) {
-  .global-wrapper {
+  @media (max-width: 425px) {
     padding: var(--spacing-4) var(--spacing-4);
   }
-}
 
-.global-wrapper[data-is-root-path="true"] .bio {
-  margin-bottom: var(--spacing-20);
+  &[data-is-root-path="true"] .bio {
+    margin-bottom: var(--spacing-20);
+  }
 }
 
 .global-header {
@@ -289,20 +287,17 @@ main {
 
 .post-list-item {
   margin-bottom: var(--spacing-1);
-}
 
-.post-list-item p {
-  margin-bottom: var(--spacing-0);
-}
+  p {
+    margin-bottom: var(--spacing-0);
+  }
 
-.post-list-item h2 {
-  font-size: var(--fontSize-1);
-  color: var(--color-primary);
-  margin-bottom: var(--spacing-2);
-  margin-top: var(--spacing-0);
-}
-
-.post-list-item header {
+  h2 {
+    font-size: var(--fontSize-1);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-2);
+    margin-top: var(--spacing-0);
+  }
 }
 
 .header-link-home {
@@ -315,9 +310,8 @@ main {
   transform: none;
   letter-spacing: -0.035em;
   line-height: 1;
-}
-@media (max-width: 425px) {
-  .header-link-home {
+
+  @media (max-width: 425px) {
     top: var(--spacing-6);
     writing-mode: vertical-lr;
     font-size: var(--fontSize-10);
@@ -327,10 +321,10 @@ main {
 .bio {
   display: flex;
   margin-bottom: var(--spacing-16);
-}
 
-.bio p {
-  margin-bottom: var(--spacing-0);
+  p {
+    margin-bottom: var(--spacing-0);
+  }
 }
 
 .bio-avatar {
@@ -340,17 +334,23 @@ main {
   border-radius: 100%;
 }
 
-.blog-post header h1 {
-  margin: var(--spacing-0) var(--spacing-0) var(--spacing-3) var(--spacing-0);
+.blog-post {
+  header {
+    h1 {
+      margin: var(--spacing-0) var(--spacing-0) var(--spacing-3) var(--spacing-0);
+    }
+
+    p {
+      font-size: var(--fontSize-1);
+      font-family: var(--font-heading);
+    }
+  }
 }
 
-.blog-post header p {
-  font-size: var(--fontSize-1);
-  font-family: var(--font-heading);
-}
-
-.blog-post-nav ul {
-  margin: var(--spacing-0);
+.blog-post-nav {
+  ul {
+    margin: var(--spacing-0);
+  }
 }
 
 .gatsby-highlight {
@@ -364,6 +364,7 @@ main {
     padding: var(--spacing-0) var(--spacing-0) var(--spacing-0) var(--spacing-4);
     margin-left: var(--spacing-0);
   }
+
   ul,
   ol {
     list-style-position: inside;
