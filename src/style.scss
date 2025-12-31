@@ -337,7 +337,8 @@ main {
 .blog-post {
   header {
     h1 {
-      margin: var(--spacing-0) var(--spacing-0) var(--spacing-3) var(--spacing-0);
+      margin: var(--spacing-0) var(--spacing-0) var(--spacing-3)
+        var(--spacing-0);
     }
 
     p {
@@ -355,6 +356,12 @@ main {
 
 .gatsby-highlight {
   margin-bottom: var(--spacing-8);
+}
+
+iframe.youtube {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
 }
 
 /* Media queries */
