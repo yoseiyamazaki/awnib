@@ -9,6 +9,43 @@ require("dotenv").config({
   path: `.env`,
 })
 
+const { documentToHtmlString } = require("@contentful/rich-text-html-renderer")
+const { BLOCKS } = require("@contentful/rich-text-types")
+
+const HTML_TAG_PATTERN = /<[^>]+>/
+
+/**
+ * ContentfulのRichText(raw JSON文字列)をHTMLに変換する。
+ * 本文にHTMLを直接書いた段落はエスケープせずそのまま出力する
+ * （src/templates/blog-post.js のレンダリングと揃えるため）
+ */
+const richTextToHtml = raw => {
+  if (!raw) return ""
+  try {
+    return documentToHtmlString(JSON.parse(raw), {
+      renderNode: {
+        [BLOCKS.PARAGRAPH]: (node, next) => {
+          const rawText = node.content.map(c => c.value || "").join("")
+          return HTML_TAG_PATTERN.test(rawText)
+            ? `<p>${rawText}</p>`
+            : `<p>${next(node.content).replace(/\n/g, "<br />")}</p>`
+        },
+      },
+    })
+  } catch (e) {
+    return ""
+  }
+}
+
+/** HTMLからタグを除いた抜粋を作る */
+const excerpt = (html, length = 120) => {
+  const text = html
+    .replace(/<[^>]*>/g, "")
+    .replace(/\s+/g, " ")
+    .trim()
+  return text.length > length ? `${text.slice(0, length)}...` : text
+}
+
 /**
  * @type {import('gatsby').GatsbyConfig}
  */
@@ -27,7 +64,10 @@ module.exports = {
     siteOgpImgH: 630,
   },
   plugins: [
+    // gatsby-source-contentful が必須プラグインとして要求する
     `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
     // Contentful Source Plugin
     {
       resolve: `gatsby-source-contentful`,
@@ -45,8 +85,6 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-feed`,
       options: {
@@ -65,24 +103,28 @@ module.exports = {
         feeds: [
           {
             serialize: ({ query: { site, allContentfulPost } }) => {
-              return allContentfulPost.nodes.map(node => ({
-                title: node.title,
-                description: '',
-                date: node.createdAt,
-                url: `${site.siteMetadata.siteUrl}/${node.slug}`,
-                guid: `${site.siteMetadata.siteUrl}/${node.slug}`,
-                custom_elements: [{ "content:encoded": node.body?.raw || '' }],
-              }))
+              return allContentfulPost.nodes.map(node => {
+                const html = richTextToHtml(node.body?.raw)
+                return {
+                  title: node.title,
+                  description: excerpt(html),
+                  date: node.date,
+                  url: `${site.siteMetadata.siteUrl}/${node.slug}/`,
+                  guid: `${site.siteMetadata.siteUrl}/${node.slug}/`,
+                  custom_elements: [{ "content:encoded": html }],
+                }
+              })
             },
             query: `{
               allContentfulPost(
-                sort: {createdAt: DESC}
+                sort: {date: DESC}
+                filter: {category: {in: ["post", "global"]}}
               ) {
                 nodes {
                   title
                   slug
                   category
-                  createdAt
+                  date
                   body {
                     raw
                   }

@@ -1,13 +1,11 @@
 {
-  "name": "gatsby-starter-blog",
+  "name": "awnib",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "description": "All we need is balance. - a personal blog powered by Gatsby and Contentful",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
-  },
+  "license": "0BSD",
   "dependencies": {
+    "@contentful/rich-text-html-renderer": "^16.6.0",
     "@contentful/rich-text-types": "^16.0.0",
     "@fontsource-variable/montserrat": "^5.0.4",
     "@fontsource/merriweather": "^5.0.3",
@@ -16,41 +14,25 @@
     "gatsby-plugin-feed": "^5.13.0",
     "gatsby-plugin-google-gtag": "^5.13.1",
     "gatsby-plugin-image": "^3.13.0",
-    "gatsby-plugin-manifest": "^5.13.0",
     "gatsby-plugin-sass": "^6.13.0",
     "gatsby-plugin-sharp": "^5.13.0",
     "gatsby-plugin-sitemap": "^6.13.1",
     "gatsby-source-contentful": "^8.13.0",
     "gatsby-source-filesystem": "^5.13.0",
     "gatsby-transformer-sharp": "^5.13.0",
-    "prismjs": "^1.30.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-helmet": "^6.1.0",
     "sass": "^1.69.6"
   },
   "devDependencies": {
-    "gh-pages": "^6.1.1",
-    "gray-matter": "^4.0.3",
     "prettier": "^2.8.8"
-  },
-  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "0BSD",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
   },
   "scripts": {
     "build": "gatsby build",
     "dev": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "deploy": "gatsby build --prefix-paths && gh-pages -d public"
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
   }
 }

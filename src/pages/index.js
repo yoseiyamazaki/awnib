@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react"
+import React, { useEffect } from "react"
 import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
@@ -10,11 +10,7 @@ import * as styles from "./index.module.scss"
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.siteTitle || `Title`
 
-  // Get Contentful posts
-  const contentfulPosts = data.allContentfulPost?.nodes || []
-  const allPosts = contentfulPosts
-
-  const skewRef = useRef([null])
+  const posts = data.allContentfulPost?.nodes || []
 
   useEffect(() => {
     var items = document.querySelectorAll(".skew")
@@ -29,32 +25,19 @@ const BlogIndex = ({ data, location }) => {
     })
   }, [])
 
-  // Group Contentful posts by year
-  const contentfulEdges = (data.allContentfulPost?.edges || []).map(({ node }) => ({
-    node: {
-      ...node,
-      fields: { slug: `/${node.slug}` },
-      frontmatter: {
-        title: node.title,
-        category: node.category,
-        date: node.date
-      }
+  // Group posts by year ("YYYY MM DD")
+  const postsByYear = posts.reduce((acc, post) => {
+    const year = post.date.split(" ")[0]
+    if (!acc[year]) {
+      acc[year] = []
     }
-  }))
-
-  const postsByYear = contentfulEdges.reduce((posts, { node }) => {
-    const date = node.date
-    let parts = date.split(" ")
-    let year = parseInt(parts[0])
-
-    if (!posts[year]) {
-      posts[year] = []
-    }
-    posts[year].push(node)
-    return posts
+    acc[year].push(post)
+    return acc
   }, {})
 
-  if (allPosts.length === 0) {
+  const years = Object.keys(postsByYear).reverse()
+
+  if (posts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
         <p>No blog posts found.</p>
@@ -67,76 +50,69 @@ const BlogIndex = ({ data, location }) => {
       <div className={styles.postsGrid}>
         <h2>global</h2>
         <ol style={{ listStyle: `none` }}>
-          {Object.keys(postsByYear)
-            .reverse()
-            .map(year =>
-              postsByYear[year].map(post => {
-                const title = post.frontmatter.title || post.fields.slug
-                return post.frontmatter.category === "global" ? (
-                  <li key={post.fields.slug}>
-                    <article
-                      className="post-list-item"
-                      itemScope
-                      itemType="http://schema.org/Article"
-                    >
-                      <header>
-                        <h3 ref={skewRef} className="skew">
-                          <Link to={post.fields.slug} itemProp="url">
-                            <span itemProp="headline">{title}</span>
-                          </Link>
-                        </h3>
-                      </header>
-                    </article>
-                  </li>
-                ) : null
-              })
-            )}
+          {years.map(year =>
+            postsByYear[year]
+              .filter(post => post.category === "global")
+              .map(post => (
+                <li key={post.slug}>
+                  <article
+                    className="post-list-item"
+                    itemScope
+                    itemType="http://schema.org/Article"
+                  >
+                    <header>
+                      <h3 className="skew">
+                        <Link to={`/${post.slug}`} itemProp="url">
+                          <span itemProp="headline">
+                            {post.title || post.slug}
+                          </span>
+                        </Link>
+                      </h3>
+                    </header>
+                  </article>
+                </li>
+              ))
+          )}
         </ol>
       </div>
       <div className={styles.postsGrid}>
-        {Object.keys(postsByYear)
-          .reverse()
-          .map(year => {
-            return (
-              <>
-                <h2 className={styles.label}>{year}</h2>
-                <ol style={{ listStyle: `none` }}>
-                  {postsByYear[year].map(post => {
-                    const title = post.frontmatter.title || post.fields.slug
-                    const date = post.frontmatter.date
-                    let parts = date.split(" ")
-                    let month = parts[1]
-                    let day = parts[2]
-                    return post.frontmatter.category === "post" ? (
-                      <li key={post.fields.slug}>
-                        <article
-                          className="post-list-item"
-                          itemScope
-                          itemType="http://schema.org/Article"
-                        >
-                          <header>
-                            <h3 ref={skewRef} className="skew">
-                              <Link to={post.fields.slug} itemProp="url">
-                                <div
-                                  className={styles.title}
-                                  itemProp="headline"
-                                >
-                                  <span className={styles.day}>
-                                    {month}-{day}
-                                  </span>
-                                  <span>{title}</span>
-                                </div>
-                              </Link>
-                            </h3>
-                          </header>
-                        </article>
-                      </li>
-                    ) : null
-                  })}
-                </ol>
-              </>
-            )
-          })}
+        {years.map(year => {
+          const yearPosts = postsByYear[year].filter(
+            post => post.category === "post"
+          )
+          return (
+            <React.Fragment key={year}>
+              <h2>{year}</h2>
+              <ol style={{ listStyle: `none` }}>
+                {yearPosts.map(post => {
+                  const [, month, day] = post.date.split(" ")
+                  return (
+                    <li key={post.slug}>
+                      <article
+                        className="post-list-item"
+                        itemScope
+                        itemType="http://schema.org/Article"
+                      >
+                        <header>
+                          <h3 className="skew">
+                            <Link to={`/${post.slug}`} itemProp="url">
+                              <div className={styles.title} itemProp="headline">
+                                <span className={styles.day}>
+                                  {month}-{day}
+                                </span>
+                                <span>{post.title || post.slug}</span>
+                              </div>
+                            </Link>
+                          </h3>
+                        </header>
+                      </article>
+                    </li>
+                  )
+                })}
+              </ol>
+            </React.Fragment>
+          )
+        })}
       </div>
     </Layout>
   )
@@ -157,16 +133,7 @@ export const pageQuery = graphql`
         slug
         title
         category
-        date(formatString: "MM DD YYYY")
-      }
-      edges {
-        node {
-          id
-          slug
-          title
-          category
-          date(formatString: "YYYY MM DD")
-        }
+        date(formatString: "YYYY MM DD")
       }
     }
   }
