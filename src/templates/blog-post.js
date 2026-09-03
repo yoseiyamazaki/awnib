@@ -2,11 +2,71 @@ import * as React from "react"
 import { useEffect } from "react"
 import { graphql } from "gatsby"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
-import { BLOCKS, MARKS } from "@contentful/rich-text-types"
+import { BLOCKS, INLINES, MARKS } from "@contentful/rich-text-types"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { Libraries } from "../components/libraries";
+
+const MARK_TAGS = {
+  [MARKS.BOLD]: "b",
+  [MARKS.ITALIC]: "i",
+  [MARKS.UNDERLINE]: "u",
+  [MARKS.CODE]: "code",
+}
+
+// 実在するHTMLタグらしき記述だけにマッチさせる（「a < b > c」のような本文を誤検知しない）
+const HTML_TAG_PATTERN = /<\/?[a-zA-Z][a-zA-Z0-9-]*(\s[^<>]*)?\/?>/
+
+const collectText = node =>
+  node.nodeType === "text"
+    ? node.value || ""
+    : (node.content || []).map(collectText).join("")
+
+const containsHtmlTag = node => HTML_TAG_PATTERN.test(collectText(node))
+
+// 生HTMLパス用。マークとリンクを保ったままHTML文字列にし、改行は<br />に変換する
+const nodeToHtml = node => {
+  if (node.nodeType === "text") {
+    const html = (node.value || "").replace(/\n/g, "<br />")
+    return (node.marks || []).reduce((acc, mark) => {
+      const tag = MARK_TAGS[mark.type]
+      return tag ? `<${tag}>${acc}</${tag}>` : acc
+    }, html)
+  }
+
+  const inner = (node.content || []).map(nodeToHtml).join("")
+
+  if (node.nodeType === INLINES.HYPERLINK) {
+    return `<a href="${node.data.uri}">${inner}</a>`
+  }
+
+  return inner
+}
+
+// 太字やリンクでReact要素になった子も再帰的に辿って \n を <br /> に変換する
+const insertLineBreaks = children =>
+  React.Children.map(children, child => {
+    if (typeof child === "string") {
+      const parts = child.split("\n")
+      return parts.map((text, i) => (
+        <React.Fragment key={i}>
+          {text}
+          {i < parts.length - 1 && <br />}
+        </React.Fragment>
+      ))
+    }
+
+    if (React.isValidElement(child) && child.props.children) {
+      return React.cloneElement(
+        child,
+        null,
+        insertLineBreaks(child.props.children)
+      )
+    }
+
+    return child
+  })
 
 const BlogPostTemplate = ({
   data: { previous, next, site, contentfulPost },
@@ -76,33 +136,31 @@ const BlogPostTemplate = ({
   const options = {
     renderNode: {
       [BLOCKS.PARAGRAPH]: (node, children) => {
-        // nodeの値を直接チェックしてHTMLタグが含まれているか確認
-        const rawText = node.content
-          .map(content => content.value || '')
-          .join('');
-
-        const htmlTagPattern = /<[^>]+>/;
-
-        // HTMLタグが含まれている場合
-        if (htmlTagPattern.test(rawText)) {
-          return <p dangerouslySetInnerHTML={{ __html: rawText }} />
+        // HTMLタグが直接書かれている段落だけ、生HTMLとして出力する
+        if (containsHtmlTag(node)) {
+          return <p dangerouslySetInnerHTML={{ __html: nodeToHtml(node) }} />
         }
 
-        // 通常のテキスト処理（改行を<br />に変換）
-        const processedChildren = React.Children.map(children, child => {
-          if (typeof child === 'string') {
-            return child.split('\n').map((text, i, arr) => (
-              <React.Fragment key={i}>
-                {text}
-                {i < arr.length - 1 && <br />}
-              </React.Fragment>
-            ))
-          }
-          return child
-        })
-
-        return <p>{processedChildren}</p>
+        return <p>{insertLineBreaks(children)}</p>
       },
+      [BLOCKS.HEADING_1]: (node, children) => (
+        <h1>{insertLineBreaks(children)}</h1>
+      ),
+      [BLOCKS.HEADING_2]: (node, children) => (
+        <h2>{insertLineBreaks(children)}</h2>
+      ),
+      [BLOCKS.HEADING_3]: (node, children) => (
+        <h3>{insertLineBreaks(children)}</h3>
+      ),
+      [BLOCKS.HEADING_4]: (node, children) => (
+        <h4>{insertLineBreaks(children)}</h4>
+      ),
+      [BLOCKS.HEADING_5]: (node, children) => (
+        <h5>{insertLineBreaks(children)}</h5>
+      ),
+      [BLOCKS.HEADING_6]: (node, children) => (
+        <h6>{insertLineBreaks(children)}</h6>
+      ),
     },
   }
 

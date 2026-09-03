@@ -80,6 +80,9 @@ const BlogIndex = ({ data, location }) => {
           const yearPosts = postsByYear[year].filter(
             post => post.category === "post"
           )
+          if (yearPosts.length === 0) {
+            return null
+          }
           return (
             <React.Fragment key={year}>
               <h2>{year}</h2>
